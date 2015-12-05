@@ -1,9 +1,12 @@
 import wpf
 
 from System.Windows import Application, Window, DialogResultConverter
-from Microsoft.Win32 import OpenFileDialog, CommonDialog
+from Microsoft.Win32 import OpenFileDialog
 
 class MyWindow(Window):
+
+    keyWordsArray = ["" for i in range(256)]
+
     def __init__(self):
         wpf.LoadComponent(self, 'Data_Structures_Project.xaml')
     
@@ -14,6 +17,9 @@ class MyWindow(Window):
         if (openFileDialog.FileName != ""):
             self.fileAddressTextBox.Text = openFileDialog.FileName
         del openFileDialog
+        pass
+    
+    def setKeyWordButton_Click(self, sender, e):
         pass
     
 
