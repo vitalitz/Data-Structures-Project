@@ -3,8 +3,10 @@ Created on Nov 27, 2015
 
 @author: guy
 '''
-from collections import defaultdict
 import string
+import collections
+from collections import defaultdict
+
 
 def part_a_get_key(item):
     return item[1]
@@ -158,13 +160,14 @@ class Ac_tag_docs(object):
                     
         tag_words = most_used_words_keys[len(most_used_words)-self.list_size:]
         return tag_words
-             
+           
 if __name__ == '__main__':
     file_address_list = ['test.txt','test2.txt','test3.txt']
     list_size = 3                   
     tag_machine = Ac_tag_docs(file_address_list,list_size)
     tag_words = tag_machine.tag_docs_type_a()
     print(tag_words)
+
     
         
         

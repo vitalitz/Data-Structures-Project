@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using IronPython.Hosting;
 using Microsoft.Scripting;
 using Microsoft.Scripting.Hosting;
+using System.IO;
 
 namespace Data_Structures_Project
 {
@@ -32,7 +33,7 @@ namespace Data_Structures_Project
         public MainWindow()
         {
             InitializeComponent();
-            return;
+
         }
 
         private void ex1FileBrowseButton_Click(object sender, RoutedEventArgs e)
@@ -53,12 +54,16 @@ namespace Data_Structures_Project
 
         private void ex1RunButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ex1ScriptAddTextBox.Text != "") script_ex1 = ex1ScriptAddTextBox.Text;
-            engine = Python.CreateEngine();
-            scope = engine.CreateScope();
-            source = engine.CreateScriptSourceFromString(script_ex1, SourceCodeKind.Statements);
-            compiled = source.Compile();
-            result = compiled.Execute(scope);
+            if (ex1ScriptAddTextBox.Text != "")
+            { 
+                engine = Python.CreateEngine();
+                ICollection<string> paths = engine.GetSearchPaths();
+                paths.Add("C:\\Program Files (x86)\\IronPython 2.7\\Lib");
+                engine.SetSearchPaths(paths);
+                result = engine.ExecuteFile(ex1ScriptAddTextBox.Text);
+                dynamic asda = result.Aa_which_words_in_text(ex1ScriptAddTextBox.Text);
+            }
+            return;
         }
     }
 }
