@@ -18,6 +18,15 @@ class MyWindow(Window):
             self.fileAddressTextBox.Text = openFileDialog.FileName
         del openFileDialog
         pass
+
+    def ex2BrowseButton_Click(self, sender, e):
+        folderPickDialog = OpenFileDialog()
+        folderPickDialog.Filter = ""
+        folderPickDialog.CheckFileExists = false
+        folderPickDialog.ShowDialog(self)
+        
+        del openFileDialog
+        pass
     
     def setKeyWordButton_Click(self, sender, e):
         pass

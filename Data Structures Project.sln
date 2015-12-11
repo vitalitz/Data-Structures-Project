@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Data Structures Project", "Data Structures Project\Data Structures Project.pyproj", "{14110602-B47E-4881-9E80-263F773451C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data Structures Project", "Data Structures Project\Data Structures Project.csproj", "{ACCBAC14-D213-4330-9CD4-537A5AEAA4C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,8 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{14110602-B47E-4881-9E80-263F773451C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14110602-B47E-4881-9E80-263F773451C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACCBAC14-D213-4330-9CD4-537A5AEAA4C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACCBAC14-D213-4330-9CD4-537A5AEAA4C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACCBAC14-D213-4330-9CD4-537A5AEAA4C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACCBAC14-D213-4330-9CD4-537A5AEAA4C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

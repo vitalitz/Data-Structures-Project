@@ -30,6 +30,9 @@
     <Compile Include="ex1.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ex2.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data_Structures_Project.xaml">
