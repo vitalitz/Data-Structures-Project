@@ -6,64 +6,66 @@
         xmlns:local="clr-namespace:Data_Structures_Project"
         mc:Ignorable="d"
         Title="Data Strucures Project" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight">
-    <Grid Width="Auto" Height="Auto">
-        <TabControl Height="Auto" Width="Auto">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DockPanel Height="Auto" LastChildFill="False" Width="Auto">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Name="settingsMenu" Header="Settings" Click="settingsMenu_Click"/>
+            </Menu>
+        </DockPanel>
+        <TabControl Grid.Row="1" Height="Auto" Width="Auto">
             <TabItem Header="Exercise 1">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="4"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="16"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="4"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="4"/>
+                        <RowDefinition Height="8"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
+                    
+                    <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Choose script file:"/>
+                        <Button Name="ex1RunButton" Grid.Column="0" Content="Run" Click="ex1RunButton_Click" IsEnabled="False"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Exercise 2" Width="Auto" Height="Auto">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="8"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Input files direcorty path:"/>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Name="ex2DirAddTextBox" Width="480"/>
+                            <Button Name="ex2DirAddBrowseButton" Grid.Column="1" Content="Browse" Click="ex2DirAddBrowseButton_Click"/>
+                        </Grid>
                     </Grid>
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox Name="ex1ScriptAddTextBox" Width="320"/>
-                        <Button Name="ex1ScriptBrowseButton" Grid.Column="1" Content="Browse" Click="ex1SciprtBrowseButton_Click"/>
-                    </Grid>
-                    <Grid Grid.Row="4">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="Choose source file:"/>
-                    </Grid>
-                    <Grid Grid.Row="6">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBox Name="ex1FileAddTextBox" Width="320"/>
-                        <Button Name="ex1FileBrowseButton" Grid.Column="1" Content="Browse" Click="ex1FileBrowseButton_Click"/>
-                    </Grid>
-                    <Grid Grid.Row="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Button Name="ex1RunButton" Grid.Column="0" Content="Run" Click="ex1RunButton_Click"/>
+                        <Button Name="ex2RunButton" Grid.Column="0" Content="Run" Click="ex2RunButton_Click" IsEnabled="False"/>
                     </Grid>
                 </Grid>
-            </TabItem>
-            <TabItem Header="Exercise 2" Width="Auto" Height="Auto">
-                
             </TabItem>
         </TabControl>
     </Grid>

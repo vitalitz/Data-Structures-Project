@@ -4,8 +4,9 @@ Created on Nov 27, 2015
 @author: guy
 '''
 import string
-import collections
 from collections import defaultdict
+from os import listdir
+from os.path import isfile, join
 
 
 def part_a_get_key(item):

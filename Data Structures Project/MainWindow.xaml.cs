@@ -24,46 +24,79 @@ namespace Data_Structures_Project
     /// </summary>
     public partial class MainWindow : Window
     {
-        String script_ex1; // TODO - get Iron Python script
         ScriptEngine engine;
-        ScriptScope scope;
-        ScriptSource source;
-        CompiledCode compiled;
-        dynamic result;
+        dynamic ex2;
+        String ex1FileAddr;
+        String ex2FileAddr;
+        String ex3FileAddr;
+        String ex4FileAddr;
+        String ex5FileAddr;
         public MainWindow()
         {
             InitializeComponent();
-
-        }
-
-        private void ex1FileBrowseButton_Click(object sender, RoutedEventArgs e)
-        {
-            Microsoft.Win32.OpenFileDialog fileDialog = new Microsoft.Win32.OpenFileDialog();
-            fileDialog.Filter = "Text Files(*.txt)|*.txt|All Files (*.*)|*.*";
-            fileDialog.ShowDialog();
-            if ((fileDialog.FileName != "") && (fileDialog.CheckFileExists == true)) ex1FileAddTextBox.Text = fileDialog.FileName;
-        }
-
-        private void ex1SciprtBrowseButton_Click(object sender, RoutedEventArgs e)
-        {
-            Microsoft.Win32.OpenFileDialog fileDialog = new Microsoft.Win32.OpenFileDialog();
-            fileDialog.Filter = "Python Script Files(*.py)|*.py|All Files (*.*)|*.*";
-            fileDialog.ShowDialog();
-            if ((fileDialog.FileName != "") && (fileDialog.CheckFileExists == true)) ex1ScriptAddTextBox.Text = fileDialog.FileName;
+            engine = Python.CreateEngine();
+            checkSettings();
         }
 
         private void ex1RunButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ex1ScriptAddTextBox.Text != "")
-            { 
-                engine = Python.CreateEngine();
-                ICollection<string> paths = engine.GetSearchPaths();
-                paths.Add("C:\\Program Files (x86)\\IronPython 2.7\\Lib");
-                engine.SetSearchPaths(paths);
-                result = engine.ExecuteFile(ex1ScriptAddTextBox.Text);
-                dynamic asda = result.Aa_which_words_in_text(ex1ScriptAddTextBox.Text);
-            }
+
+        }
+        private void ex2RunButton_Click(object sender, RoutedEventArgs e)
+        {
+            ex2 = engine.ExecuteFile(ex2FileAddr);
+            dynamic ex2Class = ex2.Exercise2(ex2DirAddTextBox.Text);
+            dynamic str = ex2.Exercise2(ex2DirAddTextBox.Text).listFiles();
+//            str = ex2.Exercise2(ex2DirAddTextBox.Text).readFile();
+            dynamic asdf = ex2.fileControl().datetoint(str[0]);
+//            string dfdg = str[0];
             return;
+        }
+
+        private void settingsMenu_Click(object sender, RoutedEventArgs e)
+        {
+            Settings settingsWindows = new Settings();
+            settingsWindows.Closed += SettingsWindows_Closed;
+            settingsWindows.ShowDialog();
+        }
+
+        private void SettingsWindows_Closed(object sender, EventArgs e)
+        {
+            checkSettings();
+        }
+
+        private void checkSettings()
+        {
+            if (File.Exists("settings.ini") == false) MessageBox.Show("settings.ini does not exist. Please go to Settings and configure the application.", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            else
+            {
+                ICollection<string> paths = engine.GetSearchPaths();
+                StreamReader sr = new StreamReader("settings.ini");
+                if (sr.ReadLine() == "[Python libraries]")
+                {
+                    paths.Add(sr.ReadLine());
+                    engine.SetSearchPaths(paths);
+                }
+                sr.ReadLine();
+                if (sr.ReadLine() == "[Exercise 1 Python script]")
+                {
+                    ex1FileAddr = sr.ReadLine();
+                    ex1RunButton.IsEnabled = true;
+                }
+                sr.ReadLine();
+                if (sr.ReadLine() == "[Exercise 2 Python script]")
+                {
+                    ex2FileAddr = sr.ReadLine();
+                    ex2RunButton.IsEnabled = true;
+                }
+            }
+        }
+
+        private void ex2DirAddBrowseButton_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.FolderBrowserDialog folderBrowser = new System.Windows.Forms.FolderBrowserDialog();
+            folderBrowser.ShowDialog();
+            ex2DirAddTextBox.Text = folderBrowser.SelectedPath;
         }
     }
 }
