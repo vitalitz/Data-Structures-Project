@@ -16,6 +16,8 @@ using IronPython.Hosting;
 using Microsoft.Scripting;
 using Microsoft.Scripting.Hosting;
 using System.IO;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Data_Structures_Project
 {
@@ -24,6 +26,19 @@ namespace Data_Structures_Project
     /// </summary>
     public partial class MainWindow : Window
     {
+        struct DateStruct
+        {
+            public int year;
+            public int month;
+            public int day;
+        };
+        struct FileStruct
+        {
+            public string address;
+            public DateStruct date;
+            public string language;
+        };
+        FileStruct[] files;
         ScriptEngine engine;
         dynamic ex2;
         String ex1FileAddr;
@@ -31,10 +46,17 @@ namespace Data_Structures_Project
         String ex3FileAddr;
         String ex4FileAddr;
         String ex5FileAddr;
+        debugConsoleWindow debugConsWindow;
+        ControlWriter contrwr;
+        MemoryStream streamOut;
         public MainWindow()
         {
             InitializeComponent();
+            debugConsWindow = new debugConsoleWindow();
+            contrwr = new ControlWriter(debugConsWindow.debugConsTextBox);
             engine = Python.CreateEngine();
+            streamOut = new MemoryStream();
+            engine.Runtime.IO.SetOutput(streamOut, contrwr);
             checkSettings();
         }
 
@@ -45,11 +67,19 @@ namespace Data_Structures_Project
         private void ex2RunButton_Click(object sender, RoutedEventArgs e)
         {
             ex2 = engine.ExecuteFile(ex2FileAddr);
-            dynamic ex2Class = ex2.Exercise2(ex2DirAddTextBox.Text);
-            dynamic str = ex2.Exercise2(ex2DirAddTextBox.Text).listFiles();
-//            str = ex2.Exercise2(ex2DirAddTextBox.Text).readFile();
-            dynamic asdf = ex2.fileControl().datetoint(str[0]);
-//            string dfdg = str[0];
+            string[] listFiles = ex2.listFiles(ex2DirAddTextBox.Text);
+            files = new FileStruct[listFiles.Length];
+            int[] dateArr = new int[3];
+            for (int i = 0; i < listFiles.Length; i++)
+            {
+                files[i].address = listFiles[i];
+                dateArr = ex2.readFileDate(files[i].address);
+                files[i].date.year = dateArr[0];
+                files[i].date.month = dateArr[1];
+                files[i].date.day = dateArr[2];
+                files[i].language = ex2.readFileLanguage(files[i].address);
+            }
+            ex2.example(files[0]);
             return;
         }
 
@@ -97,6 +127,49 @@ namespace Data_Structures_Project
             System.Windows.Forms.FolderBrowserDialog folderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             folderBrowser.ShowDialog();
             ex2DirAddTextBox.Text = folderBrowser.SelectedPath;
+        }
+
+        private void debugConsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (debugConsWindow.IsVisible == false)
+            {
+                debugConsButton.Content = "Hide debug console";
+                debugConsWindow.Show();
+            }
+            else
+            {
+                debugConsButton.Content = "Show debug console";
+                debugConsWindow.Hide();
+            }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (debugConsWindow != null) debugConsWindow.Close();
+        }
+    }
+
+    public class ControlWriter : TextWriter
+    {
+        private TextBox textbox;
+        public ControlWriter(TextBox textbox)
+        {
+            this.textbox = textbox;
+        }
+
+        public override void Write(char value)
+        {
+            textbox.Text += value;
+        }
+
+        public override void Write(string value)
+        {
+            textbox.Text += value;
+        }
+
+        public override Encoding Encoding
+        {
+            get { return Encoding.ASCII; }
         }
     }
 }

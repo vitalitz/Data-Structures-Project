@@ -1,29 +1,43 @@
+#!/usr/bin/python
 """ Exercise 2 """
 import glob
 from System import Array
 
-class Exercise2:
-    def __init__(self, dirAddr):
-        self.dirAddr = dirAddr
-        pass
-    
-    def listFiles(self):
-        self.files = glob.glob(self.dirAddr + "//*.txt")
-        return Array[str](self.files)
+def listFiles(dirAddr):
+    print "Directory path: " + dirAddr
+    files = glob.glob(dirAddr + "//*.txt")
+    print "Files list:"
+    for file in Array[str](files):
+        print file
+    print("")
+    return Array[str](files)
 
-    def readFile(self):
-        self.files = [f for f in listdir(self.dirAddr) if isfile(join(self.dirAddr, f))]
-        f = open(self.dirAddr + '\\' + self.files[0], 'r')
-        return f.readline()
+def readFileDate(fileAddr):
+    f = open(fileAddr, 'r')
+    print fileAddr
+    date = f.readline()
+    f.close()
+    print "Date:"
+    print date
+    strDate = date.Substring(6, 10)
+    year = int(strDate.Substring(6, 4))
+    month = int(strDate.Substring(3, 2))
+    day = int(strDate.Substring(0, 2))
+    dateStruct = [year, month, day]
+    print "Date:"
+    print dateStruct
+    return Array[int](dateStruct)
 
-class fileControl:
-    def datetoint(self, fileAddr):
-        f = open(fileAddr, 'r')
-        strLine = f.readline()
-        strDate = strLine.Substring(6, 10)
-        day = strDate.Substring(0, 2)
-        month = strDate.Substring(3, 2)
-        year = strDate.Substring(6, 4)
-        daysYears = (int(year) - 1980) * 365
-        monthsDays = int(month) * 30
-        return daysYears + monthsDays + int(day)
+def readFileLanguage(fileAddr):
+    f = open(fileAddr, 'r')
+    f.readline()
+    lang = f.readline()
+    endIndex = lang.find("</language>")
+    lang = lang.Substring(10, endIndex - 10)
+    print lang
+    print("")
+    return lang
+
+def example(file):
+    print file
+    return
