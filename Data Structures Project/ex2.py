@@ -6,6 +6,7 @@ from System import Array
 
 runtime = 0
 
+
 def listFiles(dirAddr):
     print("Directory path: " + dirAddr)
     files = glob.glob(dirAddr + "//*.txt")
