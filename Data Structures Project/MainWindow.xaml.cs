@@ -18,6 +18,8 @@ using Microsoft.Scripting.Hosting;
 using System.IO;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Windows.Interop;
+using System.Threading;
 
 namespace Data_Structures_Project
 {
@@ -26,34 +28,27 @@ namespace Data_Structures_Project
     /// </summary>
     public partial class MainWindow : Window
     {
-        struct DateStruct
-        {
-            public int year;
-            public int month;
-            public int day;
-        };
-        struct FileStruct
-        {
-            public string address;
-            public DateStruct date;
-            public string language;
-        };
-        FileStruct[] files;
         ScriptEngine engine;
         dynamic ex2;
+        dynamic database;
         String ex1FileAddr;
         String ex2FileAddr;
         String ex3FileAddr;
         String ex4FileAddr;
         String ex5FileAddr;
-        debugConsoleWindow debugConsWindow;
         ControlWriter contrwr;
         MemoryStream streamOut;
+        ProgressWindow progWindow;
+        private const int GWL_STYLE = -16;
+        private const int WS_SYSMENU = 0x80000;
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+        [DllImport("user32.dll")]
+        private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
         public MainWindow()
         {
             InitializeComponent();
-            debugConsWindow = new debugConsoleWindow();
-            contrwr = new ControlWriter(debugConsWindow.debugConsTextBox);
+            contrwr = new ControlWriter(debugConsTextBox);
             engine = Python.CreateEngine();
             streamOut = new MemoryStream();
             engine.Runtime.IO.SetOutput(streamOut, contrwr);
@@ -64,23 +59,29 @@ namespace Data_Structures_Project
         {
 
         }
-        private void ex2RunButton_Click(object sender, RoutedEventArgs e)
+        private void sortByLanguageMergeButton_Click(object sender, RoutedEventArgs e)
         {
+            Thread progressThread = new Thread(new ThreadStart(progressTh));
+            progressThread.SetApartmentState(ApartmentState.STA);
+            progressThread.IsBackground = true;
+            progressThread.Start();
             ex2 = engine.ExecuteFile(ex2FileAddr);
-            string[] listFiles = ex2.listFiles(ex2DirAddTextBox.Text);
-            files = new FileStruct[listFiles.Length];
-            int[] dateArr = new int[3];
-            for (int i = 0; i < listFiles.Length; i++)
-            {
-                files[i].address = listFiles[i];
-                dateArr = ex2.readFileDate(files[i].address);
-                files[i].date.year = dateArr[0];
-                files[i].date.month = dateArr[1];
-                files[i].date.day = dateArr[2];
-                files[i].language = ex2.readFileLanguage(files[i].address);
-            }
-            ex2.example(files[0]);
-            return;
+            database = ex2.sortByLangMergeSort(ex2DirAddTextBox.Text);
+            System.Windows.Threading.Dispatcher.FromThread(progressThread).BeginInvoke(new Action(() =>
+                {
+                    progWindow.Close();
+                    progWindow = null;
+                }
+            ));
+            System.Windows.Threading.Dispatcher.FromThread(progressThread).InvokeShutdown();
+        }
+
+        private void progressTh()
+        {
+            progWindow = new ProgressWindow();
+            progWindow.Show();
+            System.Windows.Threading.Dispatcher.Run();
+
         }
 
         private void settingsMenu_Click(object sender, RoutedEventArgs e)
@@ -117,7 +118,10 @@ namespace Data_Structures_Project
                 if (sr.ReadLine() == "[Exercise 2 Python script]")
                 {
                     ex2FileAddr = sr.ReadLine();
-                    ex2RunButton.IsEnabled = true;
+                    sortByLanguageMergeButton.IsEnabled = true;
+                    sortByLanguageQuickButton.IsEnabled = true;
+                    sortByDateButton.IsEnabled = true;
+                    compareSortButton.IsEnabled = true;
                 }
             }
         }
@@ -129,23 +133,66 @@ namespace Data_Structures_Project
             ex2DirAddTextBox.Text = folderBrowser.SelectedPath;
         }
 
-        private void debugConsButton_Click(object sender, RoutedEventArgs e)
+        private void debugConsTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (debugConsWindow.IsVisible == false)
-            {
-                debugConsButton.Content = "Hide debug console";
-                debugConsWindow.Show();
-            }
-            else
-            {
-                debugConsButton.Content = "Show debug console";
-                debugConsWindow.Hide();
-            }
+            TextBox textbox = (TextBox)sender;
+            textbox.ScrollToEnd();
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void clearOutputButton_Click(object sender, RoutedEventArgs e)
         {
-            if (debugConsWindow != null) debugConsWindow.Close();
+            debugConsTextBox.Clear();
+        }
+
+        private void sortByDateButton_Click(object sender, RoutedEventArgs e)
+        {
+            Thread progressThread = new Thread(new ThreadStart(progressTh));
+            progressThread.SetApartmentState(ApartmentState.STA);
+            progressThread.IsBackground = true;
+            progressThread.Start();
+            ex2 = engine.ExecuteFile(ex2FileAddr);
+            database = ex2.sortByDate(ex2DirAddTextBox.Text);
+            System.Windows.Threading.Dispatcher.FromThread(progressThread).BeginInvoke(new Action(() =>
+            {
+                progWindow.Close();
+                progWindow = null;
+            }
+            ));
+            System.Windows.Threading.Dispatcher.FromThread(progressThread).InvokeShutdown();
+        }
+
+        private void sortByLanguageQuickButton_Click(object sender, RoutedEventArgs e)
+        {
+            Thread progressThread = new Thread(new ThreadStart(progressTh));
+            progressThread.SetApartmentState(ApartmentState.STA);
+            progressThread.IsBackground = true;
+            progressThread.Start();
+            ex2 = engine.ExecuteFile(ex2FileAddr);
+            database = ex2.sortByLangQuickSort(ex2DirAddTextBox.Text);
+            System.Windows.Threading.Dispatcher.FromThread(progressThread).BeginInvoke(new Action(() =>
+            {
+                progWindow.Close();
+                progWindow = null;
+            }
+            ));
+            System.Windows.Threading.Dispatcher.FromThread(progressThread).InvokeShutdown();
+        }
+
+        private void compareSortButton_Click(object sender, RoutedEventArgs e)
+        {
+            Thread progressThread = new Thread(new ThreadStart(progressTh));
+            progressThread.SetApartmentState(ApartmentState.STA);
+            progressThread.IsBackground = true;
+            progressThread.Start();
+            ex2 = engine.ExecuteFile(ex2FileAddr);
+            ex2.compareSortsByLang(ex2DirAddTextBox.Text);
+            System.Windows.Threading.Dispatcher.FromThread(progressThread).BeginInvoke(new Action(() =>
+            {
+                progWindow.Close();
+                progWindow = null;
+            }
+            ));
+            System.Windows.Threading.Dispatcher.FromThread(progressThread).InvokeShutdown();
         }
     }
 

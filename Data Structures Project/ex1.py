@@ -70,7 +70,7 @@ class Aa_which_words_in_text(object):
         defdict = self._remove_connection_words_from_dic(defdict)    
         
         # DEBUG
-        #print(defdict)
+        print(defdict)
         
         return defdict
         
@@ -104,7 +104,7 @@ class Ab_which_words_in_text(Aa_which_words_in_text):
             return(words_dict)    
                 
             #debug
-            #print(words_dict)
+            print(words_dict)
                     
 class Ac_tag_docs(object):
     ''' 
