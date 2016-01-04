@@ -53,10 +53,10 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <Button Name="sortByDateButton" Grid.Column="0" Content="Sort by date" Click="sortByDateButton_Click" IsEnabled="False"/>
+                        <!--<Button Name="sortByDateButton" Grid.Column="0" Content="Sort by date" Click="sortByDateButton_Click" IsEnabled="False"/>
                         <Button Name="sortByLanguageMergeButton" Grid.Column="2" Content="Sort by language - Merge Sort" Click="sortByLanguageMergeButton_Click" IsEnabled="False"/>
                         <Button Name="sortByLanguageQuickButton" Grid.Column="4" Content="Sort by language - Quick Sort" Click="sortByLanguageQuickButton_Click" IsEnabled="False"/>
-                        <Button Name="compareSortButton" Grid.Column="6" Content="Compare sort by language" Click="compareSortButton_Click" IsEnabled="False"/>
+                        <Button Name="compareSortButton" Grid.Column="6" Content="Compare sort by language" Click="compareSortButton_Click" IsEnabled="False"/>-->
                     </Grid>
                 </Grid>
             </TabItem>

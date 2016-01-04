@@ -160,7 +160,6 @@
   <ItemGroup>
     <Resource Include="TextFiles\092793.txt" />
     <Resource Include="TextFiles\17324arr.txt" />
-    <Resource Include="TextFiles\17arr.txt" />
     <Resource Include="TextFiles\1stamend.txt" />
     <Resource Include="TextFiles\26008586.txt" />
     <Resource Include="TextFiles\2600dcr1.txt" />

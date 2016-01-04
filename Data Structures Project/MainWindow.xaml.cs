@@ -112,7 +112,6 @@ namespace Data_Structures_Project
                 if (sr.ReadLine() == "[Exercise 1 Python script]")
                 {
                     ex1FileAddr = sr.ReadLine();
-                    ex1RunButton.IsEnabled = true;
                 }
                 sr.ReadLine();
                 if (sr.ReadLine() == "[Exercise 2 Python script]")
