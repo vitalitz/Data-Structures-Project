@@ -157,6 +157,21 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="TextFiles\092793.txt" />
+    <Resource Include="TextFiles\17324arr.txt" />
+    <Resource Include="TextFiles\17arr.txt" />
+    <Resource Include="TextFiles\1stamend.txt" />
+    <Resource Include="TextFiles\26008586.txt" />
+    <Resource Include="TextFiles\2600dcr1.txt" />
+    <Resource Include="TextFiles\2600dcr2.txt" />
+    <Resource Include="TextFiles\2600dcr3.txt" />
+    <Resource Include="TextFiles\2600dcrp.txt" />
+    <Resource Include="TextFiles\2600raid.txt" />
+    <Resource Include="TextFiles\adshack.txt" />
+    <Resource Include="TextFiles\agntdfss.txt" />
+    <Resource Include="TextFiles\agnts.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
