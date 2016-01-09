@@ -1,0 +1,107 @@
+﻿<Window x:Class="Data_Structures_Project.Settings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Data_Structures_Project"
+        mc:Ignorable="d"
+        Title="Settings" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight">
+    <Grid Margin="8,8,8,8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="4"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="4"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="4"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="4"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="4"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="4"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock>Python libraries directory:</TextBlock>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Name="settingsDirAddTextBox" Width="480"/>
+            <Button Name="settingsDirAddBrowseButton" Grid.Column="1" Content="Browse" Click="settingsDirAddBrowseButton_Click"/>
+        </Grid>
+        <TextBlock Grid.Row="4">Exercise 1 Python script file:</TextBlock>
+        <Grid Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Name="ex1FileAddTextBox" Width="480"/>
+            <Button Name="ex1FileBrowseButton" Grid.Column="1" Content="Browse" Click="ex1FileBrowseButton_Click"/>
+        </Grid>
+        <TextBlock Grid.Row="8">Exercise 2 Python script file:</TextBlock>
+        <Grid Grid.Row="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Name="ex2FileAddTextBox" Width="480"/>
+            <Button Name="ex2FileBrowseButton" Grid.Column="1" Content="Browse" Click="ex2FileBrowseButton_Click"/>
+        </Grid>
+        <TextBlock Grid.Row="12">Exercise 3 Python script file:</TextBlock>
+        <Grid Grid.Row="14">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Name="ex3FileAddTextBox" Width="480"/>
+            <Button Name="ex3FileBrowseButton" Grid.Column="1" Content="Browse" Click="ex3FileBrowseButton_Click"/>
+        </Grid>
+        <TextBlock Grid.Row="16">Exercise 4 Python script file:</TextBlock>
+        <Grid Grid.Row="18">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Name="ex4FileAddTextBox" Width="480"/>
+            <Button Name="ex4FileBrowseButton" Grid.Column="1" Content="Browse" Click="ex4FileBrowseButton_Click"/>
+        </Grid>
+        <TextBlock Grid.Row="20">Exercise 5 Python script file:</TextBlock>
+        <Grid Grid.Row="22">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Name="ex5FileAddTextBox" Width="480"/>
+            <Button Name="ex5FileBrowseButton" Grid.Column="1" Content="Browse" Click="ex5FileBrowseButton_Click"/>
+        </Grid>
+        <Grid Grid.Row="24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Name="saveButton" Content="Save" Click="saveButton_Click"/>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,129 @@
+﻿<Window x:Class="Data_Structures_Project.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Data_Structures_Project"
+        mc:Ignorable="d"
+        Title="Data Strucures Project" Height="Auto" Width="Auto" SizeToContent="WidthAndHeight">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DockPanel Height="Auto" LastChildFill="False" Width="Auto">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Name="settingsMenu" Header="Settings" Click="settingsMenu_Click"/>
+            </Menu>
+        </DockPanel>
+        <TabControl Grid.Row="1" Height="Auto" Width="Auto">
+            <TabItem Header="Exercise 1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="8"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Input files direcorty path:"/>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Name="ex1DirAddTextBox"/>
+                            <Button Name="ex1DirAddBrowseButton" Grid.Column="1" Content="Browse" Click="ex2DirAddBrowseButton_Click"/>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <!--<Button Name="sortByDateButton" Grid.Column="0" Content="Sort by date" Click="sortByDateButton_Click" IsEnabled="False"/>
+                        <Button Name="sortByLanguageMergeButton" Grid.Column="2" Content="Sort by language - Merge Sort" Click="sortByLanguageMergeButton_Click" IsEnabled="False"/>
+                        <Button Name="sortByLanguageQuickButton" Grid.Column="4" Content="Sort by language - Quick Sort" Click="sortByLanguageQuickButton_Click" IsEnabled="False"/>
+                        <Button Name="compareSortButton" Grid.Column="6" Content="Compare sort by language" Click="compareSortButton_Click" IsEnabled="False"/>-->
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Exercise 2" Width="Auto" Height="Auto">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="8"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Input files direcorty path:"/>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Name="ex2DirAddTextBox"/>
+                            <Button Name="ex2DirAddBrowseButton" Grid.Column="1" Content="Browse" Click="ex2DirAddBrowseButton_Click"/>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Name="sortByDateButton" Grid.Column="0" Content="Sort by date" Click="sortByDateButton_Click" IsEnabled="False"/>
+                        <Button Name="sortByLanguageMergeButton" Grid.Column="2" Content="Sort by language - Merge Sort" Click="sortByLanguageMergeButton_Click" IsEnabled="False"/>
+                        <Button Name="sortByLanguageQuickButton" Grid.Column="4" Content="Sort by language - Quick Sort" Click="sortByLanguageQuickButton_Click" IsEnabled="False"/>
+                        <Button Name="compareSortButton" Grid.Column="6" Content="Compare sort by language" Click="compareSortButton_Click" IsEnabled="False"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="32"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Output"/>
+                <Button Name="clearOutputButton" Grid.Column="2" Content="Clear" Click="clearOutputButton_Click"/>
+            </Grid>
+            <TextBox Name="debugConsTextBox" Grid.Row="1" IsReadOnly="True" VerticalScrollBarVisibility="Visible" Width="640" Height="480" TextWrapping="Wrap"
+                 TextChanged="debugConsTextBox_TextChanged"/>
+        </Grid>
+    </Grid>
+</Window>
