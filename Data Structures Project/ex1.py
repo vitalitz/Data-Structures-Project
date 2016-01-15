@@ -144,8 +144,8 @@ class Ac_tag_docs(object):
             #from the first file exists, remove all the words that doesn't exist
             #in the new file
             for doc_address in self.doc_address_list[1:]:
-                print(doc_address) 
-                print(words_dic)
+                #print(doc_address) 
+                #print(words_dic)
                 search_engine = Ab_which_words_in_text(doc_address,words_dic.keys())
                 current_words_dic = search_engine.how_many_words_in_file()
                 for key,value in current_words_dic.items():
@@ -157,18 +157,27 @@ class Ac_tag_docs(object):
         #in this point we should have a dictionary with all the possible tag words
         #we need to translate the dictionary into a list of the most common words
         most_used_words = self._most_used_words_in_dict(words_dic)
-        print(most_used_words)
+        #print(most_used_words)
         most_used_words_keys = [word_tuple[0] for word_tuple in most_used_words]        
                     
         tag_words = most_used_words_keys[len(most_used_words)-self.list_size:]
         return tag_words
            
 if __name__ == '__main__':
+    #example for section c:
     file_address_list = ['test.txt','test2.txt','test3.txt']
     list_size = 3                   
     tag_machine = Ac_tag_docs(file_address_list,list_size)
     tag_words = tag_machine.tag_docs_type_a()
-    print(tag_words)
+    #print(tag_words)
+    #example for section b:
+    file_address = 'test.txt'
+    word_list = ['she','knows'];
+    search_engine_b = Ab_which_words_in_text(file_address,word_list)
+    t = search_engine_b.how_many_words_in_file()
+    print(t)
+    
+    
 
     
         
