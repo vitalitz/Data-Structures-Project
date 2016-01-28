@@ -28,17 +28,17 @@ class RBTree_leaf(object):
     """
     Struct of a leaf in Red Black Tree
     """
-    def __init__(self,word_value,addr):
+    def __init__(self,words,addr):
         "leaf class variables"
-        self._word_value = word_value
+        self._words = words
         self._link = link(addr)
         self._black = True
         self._left = None
         self._right = None
         self._p = None
 
-    word_value = property(fget=lambda self: self._word_value, doc="the leaf search word.")
-    link = property(fget=lambda self: self._link, doc="The Link who has the specified word word_value times.")
+    words = property(fget=lambda self: self._words, doc="the leaf search word.")
+    link = property(fget=lambda self: self._link, doc="The Link who has the specified word words times.")
     black = property(fget=lambda self: self._black, doc="The color of the node, True= black.")
     left = property(fget=lambda self: self._left, doc="The left children of the node.")
     right = property(fget=lambda self: self._right, doc="The right children of the node.")
@@ -50,18 +50,18 @@ class RBTree(object):
     the Tree struct implementation.
     """
     def __init__(self,leaf = RBTree_leaf):
-            self._nil = leaf(word_value = None,addr = None)
+            self._nil = leaf(words = None,addr = None)
             self._root = self.nil
             self._leaf = leaf
 
     nil = property(fget=lambda self: self._nil, doc="The nil of all leaf in the tree")
     root = property(fget=lambda self: self._root, doc="The root of the tree")
 
-    def insert_new_leaf(self, value, addr):
+    def insert_new_leaf(self, node, addr):
         """
         insert new value and link to the tree
         """
-        self._insert_leaf(self._leaf(value,addr))
+        self._insert_leaf(self._leaf(node,addr))
 
     def _left_rotate(self,x):
         """
@@ -105,16 +105,16 @@ class RBTree(object):
         x = self.root
         while x != self.nil:
             y = x
-            if z._word_value < x.word_value:
+            if z._words < x.words:
                 x = x.left
-            elif z._word_value == x.word_value:
+            elif z._words == x.words:
                 x._link._add_link(z.link)
                 return
             else: x = x.right
         z._p = y
         if y == self.nil:
             self._root = z
-        elif z.word_value < y.word_value:
+        elif z.words < y.words:
             y._left = z
         else : y._right = z
         z._right = self.nil
@@ -165,9 +165,9 @@ class RBTree(object):
         if u.p == self.nil:
             self._root = v
         elif u == u.p.left:
-            u.p.left = v
+            u.p._left = v
         else: u.p.right = v
-        v.p = u.p
+        v._p = u.p
 
     def _delete_fixup(self,x):
         """
@@ -197,26 +197,26 @@ class RBTree(object):
                     x = self.root
             else:
                 w = x.p.left
-                if w.black == False:
-                    w.black = True
-                    x.p.black = False
+                if w._black == False:
+                    w._black = True
+                    x.p._black = False
                     self._right_rotate(x.p)
                     w = x.p.left
                 if w.right.black == True and w.left.black == True:
-                    w.black = False
+                    w._black = False
                     x = x.p
                 elif w.left.black == True:
-                    w.right.black = True
-                    w.black = False
+                    w.right._black = True
+                    w._black = False
                     self._left_rotate(w)
                     w = x.p.left
                 else:
-                    w.black = x.p.black
-                    x.p.black = True
-                    w.left.black = True
+                    w._black = x.p.black
+                    x.p._black = True
+                    w.left._black = True
                     self._right_rotate(x.p)
                     x = self.root
-        x.black = True
+        x._black = True
 
     def delete(self,z):
         """
@@ -231,54 +231,63 @@ class RBTree(object):
             x = z.left
             self._transplant(z,z.left)
         else:
-            y = self.minimum_value(z.right)
+            y = self.get_minimum(z.right)
             y_original_black = y.black
             x = y.right
             if y.p == z:
                 x.p = y
             else:
                 self._transplant(y,y.right)
-                y.right = z.right
-                y.right.p = y
+                y._right = z.right
+                y._right._p = y
             self._transplant(z,y)
-            y.left = z.left
-            y.left.p = y
-            y.black = z.black
+            y._left = z.left
+            y._left._p = y
+            y._black = z.black
         if y_original_black == True:
             self._delete_fixup(x)
 
+    def get_minimum(self,root = None):
+        if root == None:
+            root = self._leaf.left
+        while root.left != self.nil:
+            root = root.left
+        return root
 
-    def search(self,x,word_value):
+    def search(self,x,words):
         """
         searching for a value in the subtree of x
         """
         if None == x:
             x = self.root
-        while x != self.nil and word_value != x.key:
-            if word_value < x._word_value:
+        while x != self.nil and words != x.key:
+            if words < x._words:
                 x = x.left
             else:
                 x = x.right
+        if x == self.nil:
+            return None
+        else: return x
 
     def minimum_value(self,root = None):
         """
         The minimum value in subtree of root
         """
         if root == None:
-            root = self._leaf.left
+            root = self._root
         while root.left != self.nil:
             root = root.left
-        return root.word_value
+        return root.words
 
     def maximum_value(self,root = None):
         """
         The maximum value of the subtree of root
         """
         if root == None:
-            root = self._leaf.right
+            root = self._root
         while root.right != self.nil:
             root = root.right
-        return root.word_value
+        return root.words
 
     def inorder(self,x,myfile):
         """
@@ -288,7 +297,7 @@ class RBTree(object):
             self.inorder(x.left,myfile)
             mylink = x.link
             while mylink != None:
-                myfile.write('link:' + mylink.link_addr + '; word appearance:' + '%d \n' %x.word_value)
+                myfile.write('Link:' + mylink.link_addr + '\nDictionary: %s \n' %x.words)
                 mylink = mylink.next_link
             self.inorder(x.right,myfile)
 
@@ -298,25 +307,26 @@ class RBTree(object):
         """
         if x != self.nil:
             mylink = x.link
+
             while mylink != None:
-                myfile.write('link:' + mylink.link_addr + '; word appearance:'  + '%d \n' %x.word_value)
+                myfile.write('Link:' + mylink.link_addr + '\nDictionary: %s \n' %x.words)
                 mylink = mylink.next_link
             self.inorder(x.left,myfile)
             self.inorder(x.right,myfile)
 
-    def print_tree(self, x, myfile,tree_file):
+    def greatest(self, x, myfile, tree_file):
         """
         Print the tree from greatest to smallest value
         """
         if x != self.nil:
-            self.print_tree(x.right,myfile,tree_file)
+            self.greatest(x.right,myfile,tree_file)
             mylink = x.link
             while mylink != None:
-                myfile.write('link:' + mylink.link_addr + '; word appearance: ' + '%d \n' %x._word_value)
+                myfile.write('link:' + mylink.link_addr + 'Dictionary: ' + '%s\n' %x._words)
                 mylink = mylink.next_link
             if x == self._root :
-                tree_file.write('root of the tree is %d, black %s \n'%(x._word_value,x._black))
-            else: tree_file.write('parent: %d value: %d Black: %s \n' %(x._p._word_value,x._word_value,x._black))
-            self.print_tree(x.left,myfile,tree_file)
+                tree_file.write('Tree root dictionary is %s\nRoot color black: %s \n\n'%(x._words,x._black))
+            else: tree_file.write('parent dictionary: %s\nDictionary: %s\nBlack: %s \n\n' %(x._p._words,x._words,x._black))
+            self.greatest(x.left,myfile,tree_file)
 
 

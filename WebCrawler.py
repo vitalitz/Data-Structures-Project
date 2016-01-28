@@ -5,16 +5,14 @@ import string
 
 class WebCrawler(object):
 
-    def __init__(self,source_url,depth,words):
+    def __init__(self,source_url,depth):
         # source_url should be of type http://example.ext/..., depth is the depth links will be exctracted from the
         # source_url
         self._SourceUrl = source_url
         self._Depth = depth
-        self._Word_list = words
         self.Url_list = []
         self._main()
 
-    word_list = property(fget=lambda self: self._Word_list, doc="The string that should be searched")
     Depth = property(fget=lambda self: self._Depth, doc="The Depth of links search from the source url")
     SourceUrl = property(fget=lambda self: self._SourceUrl, doc="The initial Url to start crawl from")
 
