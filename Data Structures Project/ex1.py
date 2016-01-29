@@ -1,14 +1,10 @@
-#!/usr/bin/python
 '''
 Created on Nov 27, 2015
 
 @author: guy
 '''
-import string
 from collections import defaultdict
-from os import listdir
-from os.path import isfile, join
-
+import string
 
 def part_a_get_key(item):
     return item[1]
@@ -70,7 +66,7 @@ class Aa_which_words_in_text(object):
         defdict = self._remove_connection_words_from_dic(defdict)    
         
         # DEBUG
-        print(defdict)
+        #print(defdict)
         
         return defdict
         
@@ -104,7 +100,7 @@ class Ab_which_words_in_text(Aa_which_words_in_text):
             return(words_dict)    
                 
             #debug
-            print(words_dict)
+            #print(words_dict)
                     
 class Ac_tag_docs(object):
     ''' 
@@ -162,23 +158,41 @@ class Ac_tag_docs(object):
                     
         tag_words = most_used_words_keys[len(most_used_words)-self.list_size:]
         return tag_words
-           
+            
+
+def return_most_used_words_in_dict(dict_i):
+        t = []
+        for key, value in dict_i.items():
+            t.append((key, value))
+        d = sorted(t,key=part_a_get_key)
+        return d
+
+
+
+def tag_list_of_words(files_list,number_of_words):
+    ''' function runs on the list of files and returns the 
+    words that each file should be tagged with '''
+    rt_list = []
+    for doc_address in files_list:
+        search_engine = Ab_which_words_in_text(files_list[0])
+        words_dic = search_engine.how_many_words_in_file()
+        most_used_words = return_most_used_words_in_dict(words_dic)
+        most_used_words_keys = [word_tuple[0] for word_tuple in most_used_words]
+        tag_words = most_used_words_keys[len(most_used_words)-number_of_words:]
+        rt_list = rt_list.append(doc_address,tag_words)   
+     
+    return rt_list
+    
+
+    
+    
+             
 if __name__ == '__main__':
-    #example for section c:
     file_address_list = ['test.txt','test2.txt','test3.txt']
     list_size = 3                   
     tag_machine = Ac_tag_docs(file_address_list,list_size)
     tag_words = tag_machine.tag_docs_type_a()
-    #print(tag_words)
-    #example for section b:
-    file_address = 'test.txt'
-    word_list = ['she','knows'];
-    search_engine_b = Ab_which_words_in_text(file_address,word_list)
-    t = search_engine_b.how_many_words_in_file()
-    print(t)
-    
-    
-
+    print(tag_words)
     
         
         
