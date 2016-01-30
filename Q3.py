@@ -1,7 +1,7 @@
 from WebCrawler import WebCrawler
 # to use this class you should have the BS4 library, installation for python 2.7 - 'sudo apt-get install python-bs4' or install beautifulsoup4 packege
 from RedBlackTree import RBTree
-from ex1 import Ab_which_words_in_text
+from ex1 import Ac_tag_docs
 """
 The is a search engine, given a source URL, it will crawl to the depth given and extract all link in page.
 Next it will convert all the links to a list, and for each link it will create a text file with the text contained in the URL
@@ -15,17 +15,13 @@ Requrl = input("Crawl this URL :>>")
 print 'usage - 1, for higher integer might take time'
 print "Enter a depth to crawl >> 1"
 ReqDepth = input("Crawl this depth :>>")
-print 'Enter words to search example >> "BBC Sport Music"'
-ReqWords = input("search the next words :>>")
 # For usage without WebCrawler, replace next line with : ReqWords = list of words
-ReqWords = ReqWords.split(" ")
 
-ReqWords = [word.lower() for word in ReqWords]
 """
 instantiations
 """
 # This is the WebCrawler class, to use without comment the next line
-Search_Engine = WebCrawler(Requrl,ReqDepth,ReqWords)
+Search_Engine = WebCrawler(Requrl,ReqDepth)
 
 RedBlack = RBTree()
 test = file('test.txt','wt')
@@ -37,12 +33,16 @@ Tree_flow = file('tree_flow.txt','wt')
 for i in Search_Engine.Url_list:
     print i
     Curr_link_text = Search_Engine.Scrap(i)
-    Dictionary = Ab_which_words_in_text(Curr_link_text,ReqWords)
-    Dictionary_value =Dictionary.how_many_words_in_file()
-    print Dictionary_value
-    word_value = sum(Dictionary_value.values())
-    RedBlack.insert_new_leaf(word_value,i)
-RedBlack.print_tree(RedBlack._root,test,Tree_flow)
+    Dictionary = Ac_tag_docs([Curr_link_text],3)
+    Dictionary = Dictionary.tag_docs_type_a()
+    print Dictionary
+    RedBlack.insert_new_leaf(Dictionary,i)
+RedBlack.greatest(RedBlack._root,test,Tree_flow)
+RedBlack.inorder(RedBlack._root,test)
+RedBlack.preorder(RedBlack._root,test)
+RedBlack.delete(RedBlack._root)
+RedBlack.minimum_value()
+RedBlack.maximum_value()
 # The URLs ordered from highest words appearances to lowest.
 test.close()
 # The Tree relations file.
