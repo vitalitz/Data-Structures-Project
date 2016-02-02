@@ -43,7 +43,7 @@ class Aa_which_words_in_text(object):
         return rf_words
         
     def _remove_connection_words_from_dic(self,dic):
-        forbidden_words = ['is','the','a','an','and']
+        forbidden_words = ['so','to','in','it','is','the','a','an','and']
         for word in forbidden_words:
             try:
                 dic.pop(word)
@@ -174,12 +174,12 @@ def tag_list_of_words(files_list,number_of_words):
     words that each file should be tagged with '''
     rt_list = []
     for doc_address in files_list:
-        search_engine = Ab_which_words_in_text(files_list[0])
+        search_engine = Ab_which_words_in_text(doc_address)
         words_dic = search_engine.how_many_words_in_file()
         most_used_words = return_most_used_words_in_dict(words_dic)
         most_used_words_keys = [word_tuple[0] for word_tuple in most_used_words]
         tag_words = most_used_words_keys[len(most_used_words)-number_of_words:]
-        rt_list = rt_list.append(doc_address,tag_words)   
+        rt_list.append((doc_address,tag_words))   
      
     return rt_list
     
@@ -192,7 +192,8 @@ if __name__ == '__main__':
     list_size = 3                   
     tag_machine = Ac_tag_docs(file_address_list,list_size)
     tag_words = tag_machine.tag_docs_type_a()
-    print(tag_words)
+    print("These are the words used to mark the 3 files")
+    print(tag_list_of_words(file_address_list,5))
     
         
         
